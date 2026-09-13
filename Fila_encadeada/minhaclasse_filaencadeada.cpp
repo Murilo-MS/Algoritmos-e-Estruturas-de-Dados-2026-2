@@ -47,6 +47,11 @@ class FilaEncadeada{
         }
         int remove(){
 
+            if(tamanho == 0){
+
+                
+            }
+
             int valor;
             Node *aux = primeiro;
             
@@ -62,12 +67,48 @@ class FilaEncadeada{
             return valor;
             
         }
-        void mostraFila();
+
+        int buscaPosicao(int posicao) const{
+
+            Node *atual = primeiro;
+            
+            for(int i = 0; i < posicao; i++){
+
+                atual = atual->next;
+                
+            }
+
+            return atual->X;
+        }
+
+        void mostraFila() const {
+
+            for(int i = 0; i < tamanho; i++){
+                
+                cout << buscaPosicao(i) << endl;
+            }
+            
         
-        bool vazia(){
+        }
+        bool vazia() const {
 
             return primeiro == nullptr;
         };    
 
        
 };
+
+int main(){
+
+    FilaEncadeada Fila1;
+
+    Fila1.insere(5);
+    Fila1.insere(2);
+    
+    Fila1.mostraFila();
+
+    Fila1.remove();
+
+    Fila1.mostraFila();
+    return 1;
+}
