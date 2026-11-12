@@ -27,7 +27,7 @@ void cria(node*& r, int v, int n = 0){
 node* busca(node* r,int v)
 {
     if(r == nullptr){
-        cout << "Não existe " << v << " na árvore" << endl;
+        //cout << "Não existe " << v << " na árvore" << endl;
         return nullptr;
     }
     else if(r->valor == v){
@@ -43,8 +43,24 @@ node* busca(node* r,int v)
     }
 }
 
-void print(node* r){
-    cout << r->esq->valor << " <- " << r->valor  << " -> " << r->dir->valor << endl;
+void apaga(node*& r, int v){
+
+    node* aux = busca(r, v); 
+
+    if(aux != nullptr){
+        delete(aux);
+    }
+    else{
+        cout << "Não há o valor "<< v << " na árvore para ser deletado" << endl;
+    }
+}
+
+void print(node* r){ //Implementar um for com o numero de niveis, fazer também busca de nivel máximo
+
+    //if(r != nullptr){
+
+    //} 
+    //cout << r->esq->valor << " <- " << r->valor  << " -> " << r->dir->valor << endl;
 }
 
 int main(){
@@ -57,7 +73,12 @@ int main(){
 
     print(raiz);
 
-    busca(raiz, 3);
+    //busca(raiz, 3);
+
+    apaga(raiz, 8);
+    apaga(raiz, 7);
+
+    print(raiz);
 
     return 0;
 }
