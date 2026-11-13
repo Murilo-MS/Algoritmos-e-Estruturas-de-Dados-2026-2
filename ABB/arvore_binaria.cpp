@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 struct node{
@@ -45,28 +46,13 @@ node* busca(node* r,int v)
 
 int const maiorNivel(node* r, int nivelAtual = 0){
     if(r == nullptr){
-        cout << "não há árvore"  << endl;
         return -1;
     }
-    else if(r->dir == nullptr && r->esq == nullptr){
-        return nivelAtual;
-    }
-    else if(r->esq != nullptr && r->dir != nullptr){
-        int nivelEsquerdo = maiorNivel(r->esq, nivelAtual + 1);
-        int nivelDireito = maiorNivel(r->dir, nivelAtual + 1);
+   
+    int nivelEsquerdo = maiorNivel(r->esq, nivelAtual + 1);
+    int nivelDireito = maiorNivel(r->dir, nivelAtual + 1);
         
-        if(nivelEsquerdo > nivelDireito){
-            return nivelEsquerdo;
-        }
-        else return nivelDireito;
-    }
-    else if(r->esq != nullptr){
-        return maiorNivel(r->esq, nivelAtual + 1);
-    }
-    else{
-        return maiorNivel(r->dir, nivelAtual + 1);
-    }
-    
+    return max(nivelDireito, nivelEsquerdo);   
 }
 
 void apaga(node*& r, int v){
