@@ -11,7 +11,15 @@ struct node{
     node(int v) : valor(v) {}
 };
 
-void cria(node*& r, int v, int n = 0){
+typedef node* NodePtr;
+
+bool vazia(NodePtr r)
+{
+    return r == nullptr;
+}
+
+void cria(NodePtr& r, int v, int n = 0)
+{
     if (r == nullptr){
         r = new node(v);
         r->nivel = n;
@@ -25,7 +33,7 @@ void cria(node*& r, int v, int n = 0){
     }
 }
 
-node* busca(node* r,int v)
+NodePtr busca(NodePtr r,int v)
 {
     if(r == nullptr){
         //cout << "Não existe " << v << " na árvore" << endl;
@@ -44,8 +52,14 @@ node* busca(node* r,int v)
     }
 }
 
-int const maiorNivel(node* r, int nivelAtual = 0){
-    if(r == nullptr){
+bool estaNaArvore(NodePtr r, int v)
+{
+    return (busca(r, v) != nullptr);
+}
+
+int const maiorNivel(NodePtr r, int nivelAtual = 0)
+{
+    if(vazia(r)){
         return -1;
     }
    
@@ -55,19 +69,26 @@ int const maiorNivel(node* r, int nivelAtual = 0){
     return max(nivelDireito, nivelEsquerdo);   
 }
 
-void apaga(node*& r, int v){
+/*
+void apaga(NodePtr& r, int v, NodePtr pai = nullptr){
 
-    node* aux = busca(r, v); 
+    NodePtr aux = busca(r, v); 
 
-    if(aux != nullptr){
-        delete(aux);
+    if(vazia(r)){
+        return;
     }
     else{
-        cout << "Não há o valor "<< v << " na árvore para ser deletado" << endl;
+        if(pai == nullptr) delete(aux);
+
+        else{
+            
+        }
     }
 }
+*/
 
-void print(node* r) {
+void print(NodePtr r)
+{
     if (r == nullptr) return;
 
     if (r->esq != nullptr) cout << r->esq->valor;
@@ -81,9 +102,9 @@ void print(node* r) {
     cout << endl;
 }
 
-int main(){
-
-    node* raiz = nullptr;
+int main()
+{
+    NodePtr raiz = nullptr;
 
     cria(raiz, 10);
     cria(raiz, 11);
@@ -93,8 +114,8 @@ int main(){
 
     //busca(raiz, 3);
 
-    apaga(raiz, 8);
-    apaga(raiz, 7);
+    //apaga(raiz, 8);
+    //apaga(raiz, 7);
 
     print(raiz);
 
